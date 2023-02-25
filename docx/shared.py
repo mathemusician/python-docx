@@ -248,3 +248,12 @@ class Parented(object):
         The package part containing this object
         """
         return self._parent.part
+
+    def getprevious(self):
+        return self._element.getprevious()
+
+    def indx(self):
+        if self.getprevious() is not None:
+            return self.getprevious().indx() + 1
+        else:
+            return 0

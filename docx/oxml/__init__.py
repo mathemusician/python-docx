@@ -11,9 +11,16 @@ from lxml import etree
 
 from .ns import NamespacePrefixedTag, nsmap
 
+class IndexableElementBase(etree.ElementBase):
+    def indx(self) -> int:
+        if self.getprevious() is not None:
+            return self.getprevious().indx() + 1
+        else:
+            return 0
 
 # configure XML parser
-element_class_lookup = etree.ElementNamespaceClassLookup()
+fallback = etree.ElementDefaultClassLookup(element=IndexableElementBase)
+element_class_lookup = etree.ElementNamespaceClassLookup(fallback)
 oxml_parser = etree.XMLParser(remove_blank_text=True, resolve_entities=False)
 oxml_parser.set_element_class_lookup(element_class_lookup)
 

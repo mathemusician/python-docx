@@ -702,6 +702,12 @@ class _OxmlElementBase(etree.ElementBase):
             self.__class__.__name__, self._nsptag, id(self)
         )
 
+    def indx(self) -> int:
+        if self.getprevious() is not None:
+            return self.getprevious().indx() + 1
+        else:
+            return 0
+
     def first_child_found_in(self, *tagnames):
         """
         Return the first child found with tag in *tagnames*, or None if

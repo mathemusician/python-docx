@@ -7,3 +7,6 @@
 _scratch/
 Session.vim
 /.tox/
+.DS_Store
+.vscode
+build/
